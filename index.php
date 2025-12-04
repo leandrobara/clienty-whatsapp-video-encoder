@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <title>Video encoder para Whatsapp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
