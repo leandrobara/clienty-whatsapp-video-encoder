@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.upload-form');
     const loader = document.getElementById('loader-overlay');
     const allowedExtensions = ['mp4', 'mov', 'm4v', 'mkv', 'webm', 'avi', 'mpg', 'mpeg'];
-    const maxSizeMb = Number(form.dataset.maxMb || '50');
+    const maxSizeMb = Number(form.dataset.maxMb || '20');
     const maxSizeBytes = maxSizeMb * 1024 * 1024;
 
     if (!form || !loader) {
