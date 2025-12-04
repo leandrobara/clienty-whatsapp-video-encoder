@@ -43,3 +43,15 @@ php -S localhost:8000
 ```
 
 Recordá que FFmpeg debe estar instalado localmente para poder convertir los videos.
+
+## Docker
+
+Este repo incluye un `Dockerfile` basado en `php:8.2-apache` con FFmpeg instalado y la config necesaria para manejar subidas grandes.
+
+```bash
+docker build -t video-encoder .
+docker run --rm -p 8080:80 video-encoder
+# Abrir http://localhost:8080
+```
+
+El contenedor ya expone el sitio en el puerto 80 y trae Apache + PHP listos para usar.
