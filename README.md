@@ -42,23 +42,18 @@ docker build -t video-encoder-php .
 
 ---
 
-## Ejecutar el proyecto localmente
+## Modo desarrollo (sin necesidad de rebuild al modificar PHP)
 
 ```
-docker run --rm -p 8000:80 --name video-encoder video-encoder-php
+docker run --rm -p 8000:80 \
+  -v /var/www/html/projects/video-encoder-php:/var/www/html \
+  --name video-encoder \
+  video-encoder-php
 ```
 
 Abrir navegador:
 
 http://localhost:8000
-
----
-
-## Modo desarrollo (sin necesidad de rebuild al modificar PHP)
-
-```
-docker run --rm -p 8000:80   -v "$PWD:/var/www/html"   --name video-encoder   video-encoder-php
-```
 
 ---
 
