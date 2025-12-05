@@ -13,10 +13,11 @@
 </head>
 <body>
     <div class="app-card">
-        <h1>Video a MP4 optimizado para WhatsApp</h1>
+        <h1>Video a MP4 optimizado</h1>
         <p class="intro">
-            Subí un video de hasta <span class="limit-tag"><?php echo htmlspecialchars($maxFileSizeMb); ?> MB</span>
-            y recibí un archivo optimizado para WhatsApp en segundos.
+            Cargá un video de hasta <span class="limit-tag"><?php echo htmlspecialchars($maxFileSizeMb); ?> MB</span><br />
+            Una vez finalizada la subida, el sistema procesará el archivo y disparará automáticamente la descarga de la versión optimizada para WhatsApp.<br />
+            El tiempo de procesamiento puede llevar unos minutos.
         </p>
 
         <form
