@@ -16,8 +16,7 @@
         <h1>Video a MP4 optimizado</h1>
         <p class="intro">
             Cargá un video de hasta <span class="limit-tag"><?php echo htmlspecialchars($maxFileSizeMb); ?> MB</span><br />
-            Una vez finalizada la subida, el sistema procesará el archivo y disparará automáticamente la descarga de la versión optimizada para WhatsApp.<br />
-            El tiempo de procesamiento puede llevar unos minutos.
+            Una vez finalizada la subida, el sistema procesará el archivo y disparará automáticamente la descarga de la versión optimizada para WhatsApp.
         </p>
 
         <form
@@ -41,7 +40,7 @@
     </div>
     <div class="loader-overlay" id="loader-overlay" aria-hidden="true">
         <div class="spinner" aria-hidden="true"></div>
-        <span>Procesando tu video…</span>
+        <span>Procesando, puede llevar unos minutos…</span>
     </div>
     <script src="app.js" defer></script>
 </body>
