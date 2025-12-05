@@ -70,14 +70,9 @@ ffmpeg -y -i input.mp4
 -maxrate 1300k -bufsize 2600k   
 -vf "scale=854:480:force_original_aspect_ratio=decrease,pad=ceil(iw/2)*2:ceil(ih/2)*2,setsar=1"   
 -pix_fmt yuv420p   
--c:a aac -b:a 96k   -movflags +faststart   output.mp4
+-c:a aac -b:a 96k
+-movflags +faststart output.mp4
 ```
-
-Este preset asegura:
-
-- Compatibilidad total (WhatsApp, iOS, Android, navegadores).
-- Peso reducido sin perder demasiada calidad.
-- Reproducción inmediata gracias a faststart.
 
 ---
 
