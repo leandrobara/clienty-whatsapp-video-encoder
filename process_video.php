@@ -50,6 +50,16 @@ if (!move_uploaded_file($file['tmp_name'], $inputPath)) {
 $filter = 'scale=854:480:force_original_aspect_ratio=decrease,'
         . 'pad=ceil(iw/2)*2:ceil(ih/2)*2,setsar=1';
 
+$originalName = pathinfo($file['name'], PATHINFO_FILENAME);
+$safeOriginalName = preg_replace('/[^A-Za-z0-9-_]/', '_', $originalName);
+if ($safeOriginalName === '' || $safeOriginalName === null) {
+    $safeOriginalName = 'video';
+}
+// Microtime-based suffix to avoid colisiones en descargas simultáneas
+$hashSource = str_replace('.', '', sprintf('%.6f', microtime(true)));
+$hash = substr($hashSource, -8);
+$downloadName = $hash . '-' . $safeOriginalName . '.mp4';
+
 $cmd = sprintf(
     'ffmpeg -y -i %s ' .
     '-c:v libx264 -profile:v main -level 3.1 ' .
@@ -77,7 +87,7 @@ if ($returnVar !== 0 || !file_exists($outputPath)) {
 }
 
 header('Content-Type: video/mp4');
-header('Content-Disposition: attachment; filename="output_whatsapp.mp4"');
+header('Content-Disposition: attachment; filename="' . $downloadName . '"');
 header('Content-Length: ' . filesize($outputPath));
 
 readfile($outputPath);
