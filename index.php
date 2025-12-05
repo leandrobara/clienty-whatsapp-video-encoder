@@ -6,14 +6,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Video encoder para Whatsapp</title>
+    <title>Video a MP4 optimizado para WhatsApp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="app-card">
-        <h1>Video encoder para Whatsapp</h1>
+        <h1>Video a MP4 optimizado para WhatsApp</h1>
         <p class="intro">
             Subí un video de hasta <span class="limit-tag"><?php echo htmlspecialchars($maxFileSizeMb); ?> MB</span>
             y recibí un archivo optimizado para WhatsApp en segundos.
