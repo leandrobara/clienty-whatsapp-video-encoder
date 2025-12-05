@@ -62,17 +62,24 @@ http://localhost:8000
 Comando exacto aplicado por el sistema:
 
 ```
-ffmpeg -y -i input.mp4  
--c:v libx264
--profile:v main
--level 3.1
--b:v 1100k 
--maxrate 1300k -bufsize 2600k   
--vf "scale=854:480:force_original_aspect_ratio=decrease,pad=ceil(iw/2)*2:ceil(ih/2)*2,setsar=1"   
--pix_fmt yuv420p   
--c:a aac -b:a 96k
--movflags +faststart output.mp4
+ffmpeg -i input.mp4 \
+  -c:v libx264 -profile:v main -level 3.1 \
+  -b:v 1100k -maxrate 1300k -bufsize 2600k \
+  -vf "scale=854:480:force_original_aspect_ratio=decrease,pad=ceil(iw/2)*2:ceil(ih/2)*2,setsar=1" \
+  -pix_fmt yuv420p \
+  -c:a aac -b:a 96k \
+  -movflags +faststart \
+  output_whatsapp.mp4
 ```
+---
+
+## Con la conversión el video queda
+
+- En H.264 + AAC
+- Resolución segura (480p)
+- yuv420p
+- faststart habilitado
+- Tamaño final <= 14 MB
 
 ---
 
