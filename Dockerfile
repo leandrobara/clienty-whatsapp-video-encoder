@@ -20,15 +20,15 @@ RUN a2enmod rewrite
 WORKDIR /var/www/html
 COPY . /var/www/html
 
+# Copiar entrypoint
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Apache ya escucha en el puerto 80
 EXPOSE 80
 
-# ✅ Fix MPM en runtime antes de arrancar Apache
-CMD ["bash", "-lc", "\
-set -eux; \
-a2dismod mpm_event mpm_worker || true; \
-rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* || true; \
-a2enmod mpm_prefork; \
-apache2ctl -t; \
-exec apache2-foreground \
-"]
+# ENTRYPOINT = lógica de arranque
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# CMD = proceso principal
+CMD ["apache2-foreground"]
