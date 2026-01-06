@@ -5,17 +5,6 @@ RUN apt-get update && \
     apt-get install -y ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
-# ✅ ANTI "More than one MPM loaded"
-# 1) apaga todo lo que pueda estar habilitado
-# 2) borra symlinks por si quedaron "pegados"
-# 3) habilita solo prefork
-RUN set -eux; \
-    a2dismod mpm_event mpm_worker mpm_prefork || true; \
-    rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf || true; \
-    a2enmod mpm_prefork; \
-    apache2ctl -M | grep -E "mpm_" || true; \
-    apache2ctl -t
-
 # Configuración de PHP para permitir archivos grandes y más tiempo de ejecución
 RUN { \
       echo "upload_max_filesize = 200M"; \
@@ -34,11 +23,12 @@ COPY . /var/www/html
 # Apache ya escucha en el puerto 80
 EXPOSE 80
 
+# ✅ Fix MPM en runtime antes de arrancar Apache
 CMD ["bash", "-lc", "\
 set -eux; \
-echo '--- mods-enabled mpm ---'; ls -la /etc/apache2/mods-enabled | grep -i mpm || true; \
-echo '--- conf-enabled containing mpm ---'; grep -Rni \"mpm_\" /etc/apache2/conf-enabled /etc/apache2/apache2.conf /etc/apache2/mods-enabled || true; \
-echo '--- apache -M (mpm) ---'; apache2ctl -M | grep -i mpm || true; \
-echo '--- apache config test ---'; apache2ctl -t; \
-echo '--- starting apache ---'; exec apache2-foreground \
+a2dismod mpm_event mpm_worker || true; \
+rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* || true; \
+a2enmod mpm_prefork; \
+apache2ctl -t; \
+exec apache2-foreground \
 "]
