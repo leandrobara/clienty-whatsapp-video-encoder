@@ -98,6 +98,15 @@ Railway detecta automáticamente el Dockerfile y construye el contenedor.
 
 ---
 
+### Nota sobre Apache MPM
+
+En Railway, Apache solo permite tener **un MPM (Multi-Processing Module)** activo al mismo tiempo.
+Este proyecto utiliza un `entrypoint.sh` para asegurarse de que, al iniciar el contenedor,
+solo esté habilitado `mpm_prefork` (requerido por `mod_php`), evitando errores de arranque
+causados por múltiples MPM cargados simultáneamente.
+
+---
+
 ## Licencia
 
 MIT — Libre para usar y modificar.
