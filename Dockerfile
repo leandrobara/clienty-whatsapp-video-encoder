@@ -34,4 +34,11 @@ COPY . /var/www/html
 # Apache ya escucha en el puerto 80
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["bash", "-lc", "\
+set -eux; \
+echo '--- mods-enabled mpm ---'; ls -la /etc/apache2/mods-enabled | grep -i mpm || true; \
+echo '--- conf-enabled containing mpm ---'; grep -Rni \"mpm_\" /etc/apache2/conf-enabled /etc/apache2/apache2.conf /etc/apache2/mods-enabled || true; \
+echo '--- apache -M (mpm) ---'; apache2ctl -M | grep -i mpm || true; \
+echo '--- apache config test ---'; apache2ctl -t; \
+echo '--- starting apache ---'; exec apache2-foreground \
+"]
