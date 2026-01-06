@@ -5,6 +5,10 @@ RUN apt-get update && \
     apt-get install -y ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
+# Forzar un solo MPM (mod_php requiere prefork)
+RUN a2dismod mpm_event mpm_worker || true \
+    && a2enmod mpm_prefork
+
 # Configuración de PHP para permitir archivos grandes y más tiempo de ejecución
 RUN { \
       echo "upload_max_filesize = 200M"; \
