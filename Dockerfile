@@ -5,6 +5,17 @@ RUN apt-get update && \
     apt-get install -y ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
+# ✅ ANTI "More than one MPM loaded"
+# 1) apaga todo lo que pueda estar habilitado
+# 2) borra symlinks por si quedaron "pegados"
+# 3) habilita solo prefork
+RUN set -eux; \
+    a2dismod mpm_event mpm_worker mpm_prefork || true; \
+    rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf || true; \
+    a2enmod mpm_prefork; \
+    apache2ctl -M | grep -E "mpm_" || true; \
+    apache2ctl -t
+
 # Configuración de PHP para permitir archivos grandes y más tiempo de ejecución
 RUN { \
       echo "upload_max_filesize = 200M"; \
